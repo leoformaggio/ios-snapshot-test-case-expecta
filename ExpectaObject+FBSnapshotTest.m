@@ -35,7 +35,7 @@ static NSString const *kUsesDrawViewHierarchyInRectKey = @"ExpectaObject+FBSnaps
 
 + (void)setTolerance:(CGFloat)tolerance
 {
-    objc_setAssociatedObject(self, @selector(tolerance), @(tolerance), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(tolerance), @(tolerance), OBJC_ASSOCIATION_COPY);
 }
 
 + (CGFloat)tolerance

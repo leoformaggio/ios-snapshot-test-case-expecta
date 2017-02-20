@@ -261,6 +261,35 @@ describe(@"snapshots", ^{
     });
     
   });
+
+    describe(@"with tolerance", ^{
+        __block FBExampleView *view;
+
+        before(^{
+            view = [[FBRedView alloc] initWithFrame:frame];
+            expect(view).toNot.recordSnapshot();
+
+            CGRect rect = CGRectApplyAffineTransform(frame, CGAffineTransformMakeScale(0.5, 0.5));
+            FBBlueView *blueView = [[FBBlueView alloc] initWithFrame:rect];
+            [view addSubview:blueView];
+        });
+
+        after(^{
+            [Expecta setTolerance:0];
+        });
+
+        it(@"matches if given tolerance is enough", ^{
+            [Expecta setTolerance:0.25];
+
+            expect(view).to.haveValidSnapshot();
+        });
+
+        it(@"doesn't match if tolerance isn't enough", ^{
+            [Expecta setTolerance:0.24];
+
+            expect(view).toNot.haveValidSnapshot();
+        });
+    });
     
     it(@"matches view with 256 bytes aligned pointer", ^{
         Class viewClass = [UIView class];
