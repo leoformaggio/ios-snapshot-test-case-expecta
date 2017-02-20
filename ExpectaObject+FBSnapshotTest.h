@@ -18,4 +18,8 @@
 
 + (BOOL)isDeviceAgnostic;
 
++ (void)setTolerance:(CGFloat)tolerance;
+
++ (CGFloat)tolerance;
+
 @end

@@ -33,4 +33,19 @@ static NSString const *kUsesDrawViewHierarchyInRectKey = @"ExpectaObject+FBSnaps
   return isDeviceAgnostic.boolValue;
 }
 
++ (void)setTolerance:(CGFloat)tolerance
+{
+    objc_setAssociatedObject(self, @selector(tolerance), @(tolerance), OBJC_ASSOCIATION_ASSIGN);
+}
+
++ (CGFloat)tolerance
+{
+    NSNumber *tolerance = objc_getAssociatedObject(self, @selector(tolerance));
+#if CGFLOAT_IS_DOUBLE
+    return tolerance.doubleValue;
+#else
+    return tolerance.floatValue;
+#endif
+}
+
 @end
